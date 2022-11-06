@@ -1,0 +1,62 @@
+from flask import redirect
+
+from config_app import create_app, db
+from models import {{entity.name}}
+
+app = create_app()
+
+@app.route("/")
+def listar():
+    data = {{entity.name}}.query.all()
+    diccionario_{{entity.name}}s = {}
+    for d in data:
+        p = {
+            "id": d.id,
+            {% for property in entity.properties %}
+            "{{property.name}}": d.{{entity.name}}_{{property.name}},
+            {% endfor %}
+        }
+        diccionario_{{entity.name}}s[d.id] = p
+    return diccionario_{{entity.name}}s
+
+@app.route("/agregar{% for property in entity.properties %}{% if property.type|javatype == 'int' %}/<int:{{property.name}}>{% else %}/{{property.name}}{% endif %}{% endfor %}")
+def agregar({% for property in entity.properties %}{{property.name}},{% endfor %}):
+    datos = {
+        {% for property in entity.properties %}
+        "{{property.name}}": {{property.name}},
+        {% endfor %}
+    }
+    p = {{entity.name}}(datos)
+    db.session.add(p)
+    db.session.commit()
+    return redirect("/{{entity.name}}/")
+
+@app.route("/eliminar/<int:id>")
+def eliminar(id):
+    p = {{entity.name}}.query.filter_by(id=id).first()
+    db.session.delete(p)
+    db.session.commit()
+    return redirect("/{{entity.name}}")
+
+@app.route("/editar/<int:id>{% for property in entity.properties %}{% if property.type|javatype == 'int' %}/<int:{{property.name}}>{% else %}/{{property.name}}{% endif %}{% endfor %}")
+def editar(id{% for property in entity.properties %}, {{property.name}}{% endfor %}):
+    p = {{entity.name}}.query.filter_by(id=id).first()
+    {% for property in entity.properties %}
+    p.{{entity.name}}_{{property.name}} = {{property.name}}
+    {% endfor %}
+    db.session.commit()
+    return redirect("/{{entity.name}}")
+
+@app.route("/buscar/<int:id>")
+def buscar(id):
+    p = {{entity.name}}.query.filter_by(id=id).first()
+    datos = {
+        "id": p.id,
+        {% for property in entity.properties %}
+        "{{property.name}}": p.{{entity.name}}_{{property.name}},
+        {% endfor %}
+    }
+    return datos
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0")

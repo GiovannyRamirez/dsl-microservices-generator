@@ -1,0 +1,6 @@
+entity cliente {
+  nombre : string
+  apellido : string
+  direccion : string
+  telefono : string
+}
