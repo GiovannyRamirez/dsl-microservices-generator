@@ -28,9 +28,12 @@ http {
         listen       80;
         server_name  localhost;
 
-        location /{{entity.name}}s {
-            proxy_pass http://{{entity.name}}s:5000/;
+        {% for entity in entities %}
+        location /{{entity}}s {
+            proxy_pass http://{{entity}}s:5000/;
         }
+        
+        {% endfor %}
 
         error_page   500 502 503 504  /50x.html;
         location = /50x.html {
