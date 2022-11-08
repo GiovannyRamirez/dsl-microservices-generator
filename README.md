@@ -1,8 +1,10 @@
 ## Informática II
 ###  Laboratorio Generacion de Microservicio
 **Integrantes**
-- *Anjhelo Giovanny Ramírez Suárez*
-- *Daniel Ricardo Galván Torres*
+- *Anjhelo Giovanny Ramírez Suárez Codigo: 20221099014*
+- *Daniel Ricardo Galván Torres Codigo: 20221099003*
+
+
 
 
 This is an example of a simple Entity DSL through python and Jinja2
