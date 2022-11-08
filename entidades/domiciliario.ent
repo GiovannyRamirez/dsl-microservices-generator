@@ -1,0 +1,6 @@
+entity domiciliario {
+    nombre : string
+    apellido : string
+    telefono : integer
+    placa : string
+}
