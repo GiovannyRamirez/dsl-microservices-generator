@@ -1,5 +1,5 @@
 ## Informática II
-###  Laboratorio Generacion de Microservicio
+###  Laboratorio: Generación de Microservicio
 **Integrantes**
 - *Anjhelo Giovanny Ramírez Suárez Codigo: 20221099014*
 - *Daniel Ricardo Galván Torres Codigo: 20221099003*
